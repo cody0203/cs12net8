@@ -1,0 +1,14 @@
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\bin\Debug\net8.0\Variables.exe
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\bin\Debug\net8.0\Variables.deps.json
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\bin\Debug\net8.0\Variables.runtimeconfig.json
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\bin\Debug\net8.0\Variables.dll
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\bin\Debug\net8.0\Variables.pdb
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\obj\Debug\net8.0\Variables.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\obj\Debug\net8.0\Variables.AssemblyInfoInputs.cache
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\obj\Debug\net8.0\Variables.AssemblyInfo.cs
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\obj\Debug\net8.0\Variables.csproj.CoreCompileInputs.cache
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\obj\Debug\net8.0\Variables.dll
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\obj\Debug\net8.0\refint\Variables.dll
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\obj\Debug\net8.0\Variables.pdb
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\obj\Debug\net8.0\Variables.genruntimeconfig.cache
+c:\Users\DinhPham\personal\cs12dotnet8\chapter02\Variables\obj\Debug\net8.0\ref\Variables.dll
