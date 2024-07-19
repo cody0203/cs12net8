@@ -1,0 +1,15 @@
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/bin/Debug/net8.0/AsyncAwait
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/bin/Debug/net8.0/AsyncAwait.deps.json
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/bin/Debug/net8.0/AsyncAwait.runtimeconfig.json
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/bin/Debug/net8.0/AsyncAwait.dll
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/bin/Debug/net8.0/AsyncAwait.pdb
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/obj/Debug/net8.0/AsyncAwait.GeneratedMSBuildEditorConfig.editorconfig
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/obj/Debug/net8.0/AsyncAwait.AssemblyInfoInputs.cache
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/obj/Debug/net8.0/AsyncAwait.AssemblyInfo.cs
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/obj/Debug/net8.0/AsyncAwait.csproj.CoreCompileInputs.cache
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/obj/Debug/net8.0/AsyncAwait.sourcelink.json
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/obj/Debug/net8.0/AsyncAwait.dll
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/obj/Debug/net8.0/refint/AsyncAwait.dll
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/obj/Debug/net8.0/AsyncAwait.pdb
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/obj/Debug/net8.0/AsyncAwait.genruntimeconfig.cache
+/Users/dinhphamcong/Desktop/programming/cs12net8/chapter02/AsyncAwait/obj/Debug/net8.0/ref/AsyncAwait.dll
