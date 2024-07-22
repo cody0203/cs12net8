@@ -1,4 +1,6 @@
-﻿using Packt.Shared;
+﻿using System.Security.Permissions;
+using Packt.Shared;
+using Fruit = (string Name, int Count);
 
 ConfigureConsole(culture: "en-US");
 
@@ -18,10 +20,10 @@ WriteLine($"{lin.Name} was born on {lin.Born:d}");
 
 #region Enum
 
-cody.FavoriteAncientWornder = WondersOfTheAcientWorld.GreatPyramidOfGiza;
-cody.BucketList = WondersOfTheAcientWorld.GreatPyramidOfGiza | WondersOfTheAcientWorld.HangingGardenOfBabylon;
+cody.FavoriteAncientWonder = WondersOfTheAncientWorld.GreatPyramidOfGiza;
+cody.BucketList = WondersOfTheAncientWorld.GreatPyramidOfGiza | WondersOfTheAncientWorld.HangingGardenOfBabylon;
 
-WriteLine($"{cody.Name}'s favorite wonder is {cody.FavoriteAncientWornder}. Its integer is {(int)cody.FavoriteAncientWornder}");
+WriteLine($"{cody.Name}'s favorite wonder is {cody.FavoriteAncientWonder}. Its integer is {(int)cody.FavoriteAncientWonder}");
 WriteLine($"{cody.Name}'s bucket list is {cody.BucketList}. Its bytes is {(byte)cody.BucketList}");
 
 #endregion
@@ -97,4 +99,74 @@ Book book2 = new(Isbn: "978-1633438620", Title: "ASP.NET Core in Action")
     PageCount = 984
 };
 WriteLine($"{book2.Isbn}: {book2.Title} writtern by {book2.Author} has {book2.PageCount:N0} pages");
+#endregion
+
+#region Methods
+cody.WriteToConsole();
+WriteLine(cody.GetOrigin());
+WriteLine(cody.SayHello());
+WriteLine(cody.SayHello(lin.Name));
+WriteLine(cody.OptionalParameters(1));
+WriteLine(cody.OptionalParameters(2, command: "Jump", number: 98.5));
+WriteLine(cody.OptionalParameters(3, "Hide", active: false));
+
+int a = 10; // as a parameter by default, its current value gets passed, not the variable itself.
+int b = 20; // as an in parameter, a reference to variable gets passed into the method.
+int c = 30; // as a ref parameter, a reference to variable gets passed into the method but can be changed
+            // inside the method.
+int d = 40; // as an out parameter, a reference to variable gets passed into the method and the value
+            // gets replaced by statement inside the method.
+WriteLine($"Before: a={a}, b={b}, c={c}, d={d}");
+cody.PassingParameters(a, b, ref c, out d);
+WriteLine($"After: a={a}, b={b}, c={c}, d={d}");
+
+// Simplify out parameter
+int e = 50;
+int f = 60;
+int g = 70;
+WriteLine($"Before: e={e}, f={f}, g={g}, h doesn't exist yet!");
+cody.PassingParameters(e, f, ref g, out int h);
+WriteLine($"After: e={e}, f={f}, g={g}, h={h}");
+
+// Tuples
+(string, int) apple = cody.GetTuplesFruits();
+WriteLine($"{apple.Item1}, {apple.Item2} there are");
+
+
+// Without an aliased tuples type
+var grape = cody.GetNamedTuplesFruit();
+WriteLine($"Normal tuple: {grape.Name}, there are {grape.Count}");
+
+// Aliasing tuples
+Fruit grapeAliased = cody.GetNamedTuplesFruit();
+WriteLine($"aliasing tuple: {grapeAliased.Name}, there are {grapeAliased.Count}");
+
+// Deconstructing tuples
+(string grapeName, int grapeCount) = cody.GetNamedTuplesFruit();
+WriteLine($"Deconstructed tuple: {grapeName}, there are {grapeCount}");
+
+// Tuples name inference
+var thing1 = ("Neville", 4);
+WriteLine($"{thing1.Item1} has {thing1.Item2} children.");
+
+var thing2 = (cody.Name, cody.Children.Count);
+WriteLine($"{thing2.Name} has {thing2.Count}");
+
+// Deconstructors
+var (name1, dob1) = lin;
+WriteLine($"Deconstructed person: {name1}, {dob1}");
+
+var (name2, dob2, fav2) = cody;
+WriteLine($"Deconstructed person: {name2}, {dob2}, {fav2}");
+
+// Local method
+int number = -1;
+try
+{
+    WriteLine($"{number}! is {Person.Factorial(number)}");
+}
+catch (Exception ex)
+{
+    WriteLine($"{ex.GetType()} says: {ex.Message} number was {number}");
+}
 #endregion

@@ -1,7 +1,7 @@
 namespace Packt.Shared;
 
 [Flags]
-public enum WondersOfTheAcientWorld: byte
+public enum WondersOfTheAncientWorld: byte
 {
     None = 0b_0000_0000,
     GreatPyramidOfGiza = 0b_0000_0001,
