@@ -170,3 +170,29 @@ catch (Exception ex)
     WriteLine($"{ex.GetType()} says: {ex.Message} number was {number}");
 }
 #endregion
+
+#region Properties
+Person mia = new()
+{
+    Name = "Mia",
+    Born = new(year: 2023, month: 8, day: 10, hour: 4, minute: 10, second: 0, offset: TimeSpan.FromHours(+7))
+};
+
+WriteLine($"{mia.Origin}");
+WriteLine($"{mia.Greeting}");
+WriteLine($"{mia.Age}");
+
+mia.FavoriteIceCream = "Lime Mint Chocolate Chips";
+WriteLine($"{mia.Name}'s favorite ice-cream flavor is {mia.FavoriteIceCream}.");
+
+string color = "Cyan";
+try
+{
+    mia.FavoritePrimaryColor = color;
+    WriteLine($"{mia.Name}'s favorite primary color is {mia.FavoritePrimaryColor}.");
+}
+catch (Exception ex)
+{
+    WriteLine($"Tried to set {nameof(mia.FavoritePrimaryColor)} to '{color}': {ex.Message}'.");
+}
+#endregion

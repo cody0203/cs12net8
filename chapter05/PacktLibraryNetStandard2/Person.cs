@@ -1,12 +1,13 @@
 namespace Packt.Shared;
 
 // Default access modifier = private
-public class Person: System.Object
+public partial class Person: System.Object
 {
     #region Fields: Data or state of this person
     public string? Name;
     public DateTimeOffset Born;
-    public WondersOfTheAncientWorld FavoriteAncientWonder;
+    // This has been moved to PersonAutoGen.cs as a property
+    // public WondersOfTheAncientWorld FavoriteAncientWonder;
     public WondersOfTheAncientWorld BucketList;
     public List<Person> Children = new();
 
