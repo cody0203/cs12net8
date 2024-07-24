@@ -212,3 +212,39 @@ WriteLine($"{lin.Name}'s 2nd child is {lin[1].Name}");
 // Get using the string indexer.
 WriteLine($"{lin.Name}'s 1st child named {lin[0].Name} is {lin[lin[0].Name].Age} years old");
 #endregion
+
+#region Pattern matching with objects
+Passenger[] passengers = {
+    new FirstClassPassenger { AirMiles = 1_419, Name = "Susan" },
+    new FirstClassPassenger { AirMiles = 17_249, Name = "Luck" },
+    new BusinessClassPassenger { Name = "Jane" },
+    new CoachClassPassenger { CarryOnKg = 25.7, Name = "David" },
+    new CoachClassPassenger { CarryOnKg = 0, Name = "Amir" }
+ };
+
+ foreach (Passenger passenger in passengers)
+ {
+    decimal flightCost = passenger switch
+    {
+        // C#8 syntax
+        // FirstClassPassenger p when p.AirMiles > 35_000 => 1_500M,
+        // FirstClassPassenger p when p.AirMiles > 15_000 => 1_750M,
+        // FirstClassPassenger _ => 2_000M,
+
+        // C#9 and later syntax
+        FirstClassPassenger p => p.AirMiles switch
+        {
+            > 35_000 => 1_500M,
+            > 15_000 => 1_750M,
+            _ => 2_000M
+        },
+        
+        BusinessClassPassenger _ => 1_000M,
+        CoachClassPassenger p when p.CarryOnKg < 10.0 => 500M,
+        CoachClassPassenger _ => 650M,
+        _ => 800M
+    };
+
+    WriteLine($"Flight costs {flightCost:C} for {passenger}");
+ }
+#endregion
