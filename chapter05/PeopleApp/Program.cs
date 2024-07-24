@@ -196,3 +196,19 @@ catch (Exception ex)
     WriteLine($"Tried to set {nameof(mia.FavoritePrimaryColor)} to '{color}': {ex.Message}'.");
 }
 #endregion
+
+#region Indexers
+lin.Children.Add(new () { Name = "Chi", Born = new(2022, 12, 24, 0, 0, 0, TimeSpan.FromHours(+7)) });
+lin.Children.Add(mia);
+
+// Get using Children list.
+WriteLine($"{lin.Name}'s 1st child is {lin.Children[0].Name}");
+WriteLine($"{lin.Name}'s 2nd child is {lin.Children[1].Name}");
+
+// Get using the int indexer.
+WriteLine($"{lin.Name}'s 1st child is {lin[0].Name}");
+WriteLine($"{lin.Name}'s 2nd child is {lin[1].Name}");
+
+// Get using the string indexer.
+WriteLine($"{lin.Name}'s 1st child named {lin[0].Name} is {lin[lin[0].Name].Age} years old");
+#endregion

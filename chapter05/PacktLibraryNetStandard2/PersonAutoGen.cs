@@ -89,4 +89,28 @@ public partial class Person
         _favoriteAncientWonder = value;
     }
     #endregion
+
+    #region Indexers: Properties that use array syntax to access them.
+    public Person this[int index]
+    {
+        get
+        {
+            return Children[index]; // Pass on to the List<T> indexer
+        }
+        set
+        {
+            Children[index] = value;
+        }
+    }
+
+    // A read-only indexer overloadded with a string parameter
+    public Person this[string name]
+    {
+        get
+        {
+            return Children.Find(p => p.Name == name);
+        }
+    }
+
+    #endregion
 }
