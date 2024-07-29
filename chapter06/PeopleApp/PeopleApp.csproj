@@ -9,5 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PacktLib\PacktLib.csproj" />
+    <Using Include="System.Console" Static="true" />
   </ItemGroup>
 </Project>
