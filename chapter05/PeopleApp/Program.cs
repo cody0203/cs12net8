@@ -303,3 +303,15 @@ var (who, what) = oscar; // Calls the desconstruct method.
 WriteLine($"{who} is a {what}");
 
 #endregion
+
+#region Primary Constructor
+Headset vp = new()
+{
+    ProductName = "Vision Pro",
+    Manualfacturer = "Apple"
+};
+WriteLine($"{vp.ProductName} is made by {vp.Manualfacturer}");
+
+Headset holo = new();
+WriteLine($"{holo.ProductName} is made by {holo.Manualfacturer}");
+#endregion
