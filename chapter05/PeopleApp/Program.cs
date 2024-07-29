@@ -248,3 +248,58 @@ Passenger[] passengers = {
     WriteLine($"Flight costs {flightCost:C} for {passenger}");
  }
 #endregion
+
+#region Record Types
+ImmutablePerson jeff = new()
+{
+    FirstName = "Jeff",
+    LastName = "Winger",
+};
+
+// jeff.FirstName = "Geoff"; // Error
+
+ImmutableVehicle car = new()
+{
+    Brand = "Mazda MX-5 RF",
+    Color = "Soul Red",
+    Wheels = 4,
+};
+
+ImmutableVehicle repaintedCar = car with
+{
+    Color = "Polymetal Grey",
+};
+
+WriteLine($"Original car color was {car.Color}");
+WriteLine($"New car color is {repaintedCar.Color}");
+
+AnimalClass ac1 = new()
+{
+    Name = "Rex"
+};
+
+AnimalClass ac2 = new()
+{
+    Name = "Rex"
+};
+
+WriteLine($"ac1 == ac2: {ac1 == ac2}"); // False. Class instances are only equal if their memory addresses are equal.
+
+AnimalRecord ar1 = new()
+{
+    Name = "Rex"
+};
+
+AnimalRecord ar2 = new()
+{
+    Name = "Rex"
+};
+
+WriteLine($"ar1 == ar2 {ar1 == ar2}"); // True. Record instances are equal if they have the same property values.
+
+ImmutableAnimal oscar = new("Oscar", "Labrador");
+var (who, what) = oscar; // Calls the desconstruct method.
+
+WriteLine($"{who} is a {what}");
+
+#endregion
