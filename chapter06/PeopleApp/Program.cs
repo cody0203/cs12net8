@@ -108,3 +108,44 @@ cody.Poke(); // Nothing here
 cody.Poke(); // Event cody's angerLevel >= 3 and the Shout != null, it will raise the Shout event everytime the angerLevel incresing.
 cody.Poke(); // After added another method to the Shout event deletgate, both of them will be trigged when angerLevel >= 3.
 #endregion
+
+#region Interfaces
+Person?[] people =
+{
+    null,
+    new() { Name = "Simon" },
+    new() { Name = "Jenny" },
+    new() { Name = "Adam" },
+    new() { Name = null },
+    new() { Name = "Richard" },
+};
+
+OutputPeopleNames(people, "Initial list of people: ");
+
+// <null> Person
+// Simon
+// Jenny
+// Adam
+// <null> Name
+// Richard
+
+Array.Sort(people);
+OutputPeopleNames(people, "After sorting using Person's IComparable implementation:"); // Failed for the first time while Person class didn't implement IComparable inteface
+
+// Adam
+// Jenny
+// Richard
+// Simon
+// <null> Name
+// <null> Person
+
+Array.Sort(people, new PersonCompare());
+OutputPeopleNames(people, "After sorting using PersonCompare's IComparer implementation:"); // Using separate class to comparing object by implementing IComparer interface
+
+// Adam
+// Jenny
+// Simon
+// Richard
+// <null> Name
+// <null> Person
+#endregion
