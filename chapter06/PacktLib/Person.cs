@@ -99,4 +99,22 @@ public class Person
     }
 
     #endregion
+
+    #region Operators
+    // Return type of operators cannot be void.
+
+    // Define the + operator to "marry"
+    public static bool operator +(Person p1, Person p2)
+    {
+        Marry(p1, p2);
+
+        // Confirm they are both now married.
+        return p1.Married && p2.Married;
+    }
+
+    public static Person operator *(Person p1, Person p2)
+    {
+        return Procreate(p1, p2);
+    }
+    #endregion
 }
