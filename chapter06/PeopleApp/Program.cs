@@ -98,3 +98,13 @@ WriteLine($"Key {key} has value: {lookupIntString[key]}");
 #endregion
 
 #endregion
+
+#region Delegates and Events
+// Assign the method(s) to the Shout event delegate
+cody.Shout += Cody_Shout;
+cody.Shout += Cody_Shout_2;
+cody.Poke(); // Nothing here
+cody.Poke(); // Nothing here
+cody.Poke(); // Event cody's angerLevel >= 3 and the Shout != null, it will raise the Shout event everytime the angerLevel incresing.
+cody.Poke(); // After added another method to the Shout event deletgate, both of them will be trigged when angerLevel >= 3.
+#endregion

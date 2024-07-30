@@ -116,5 +116,25 @@ public class Person
     {
         return Procreate(p1, p2);
     }
+    #endregion\
+
+    #region Delegates and Events
+    public event EventHandler? Shout;
+
+    public int AngerLevel;
+
+    public void Poke()
+    {
+        AngerLevel++;
+
+        if (AngerLevel < 3) return;
+
+        // If something is listening to the event
+        if (Shout is not null)
+        {
+            // then call the delegate to "raise" the event.
+            Shout(this, EventArgs.Empty);
+        }
+    }
     #endregion
 }
