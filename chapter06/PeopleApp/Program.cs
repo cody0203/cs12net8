@@ -149,3 +149,30 @@ OutputPeopleNames(people, "After sorting using PersonCompare's IComparer impleme
 // <null> Name
 // <null> Person
 #endregion
+
+#region Equality Of Types
+
+// When check the equality of two value types, .NET compares the values of those two variables on the stack
+int a = 3;
+int b = 3;
+WriteLine($"a: {a}, b: {b}");
+WriteLine($"a == b: {a == b}"); // True
+
+// When check the equality of two reference value types, .NET compares the memory addresses of those two variable.
+Person p1 = new() { Name = "Kevin" };
+Person p2 = new() { Name = "Kevin" };
+
+WriteLine($"p1: {p1}, p2: {p2}");
+WriteLine($"p1.Name: {p1.Name}, p2.Name: {p2.Name}");
+WriteLine($"p1 == p2: {p1 == p2}"); // False
+
+Person p3 = p1;
+WriteLine($"p3: {p3}");
+WriteLine($"p3.Name: {p3.Name}");
+WriteLine($"p1 == p3: {p1 == p3}"); // True
+
+// Those variables are still equal since their Name fields are different.
+p3.Name = "Kelly";
+WriteLine($"p3.Name: {p3.Name}");
+WriteLine($"p1 == p3: {p1 == p3}"); // True
+#endregion
