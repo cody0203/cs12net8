@@ -186,5 +186,5 @@ WriteLine($"({dv1.X}, {dv2.X}) + ({dv2.X}, {dv2.Y}) = ({dv3.X}, {dv3.Y})");
 
 DisplacementVector dv4 = new(3, 5);
 WriteLine($"dv1.Equals(dv4): {dv1.Equals(dv4)}"); // True
-// WriteLine($"dv1 == dv4: {dv1 == dv4}"); // Error if DisplacementVector is a struct type, but ok if it is a record struct type
+// WriteLine($"dv1 == dv4: {dv1 == dv4}"); // Error if DisplacementVector is a struct type, but it's ok if it is a record struct type
 #endregion
