@@ -62,3 +62,39 @@ for (int i = 0; i < lamech.Children.Count; i++)
     WriteLine($"{lamech.Name}'s child #{i} is named {lamech.Children[i].Name}");
 }
 #endregion
+
+#region Types safely reusable with generics
+
+#region Non-generic types
+
+// Non-generic lookup collection
+System.Collections.Hashtable lookupObject = new();
+lookupObject.Add(key: 1, value: "Alpha");
+lookupObject.Add(key: 2, value: "Beta");
+lookupObject.Add(key: 3, value: "Gamma");
+lookupObject.Add(key: cody, value: "Delta");
+
+int key = 2; // Look up the value that has 2 as its key
+
+WriteLine($"Key {key} has value: {lookupObject[key]}");
+
+// Look up the value that has cody as its key
+WriteLine($"Key {cody} has value: {lookupObject[cody]}");
+
+#endregion
+
+#region Generic types
+
+Dictionary<int, string> lookupIntString = new();
+lookupIntString.Add(key: 1, value: "Alpha");
+lookupIntString.Add(key: 2, value: "Beta");
+lookupIntString.Add(key: 3, value: "Gamma");
+lookupIntString.Add(key: 4, value: "Delta");
+// lookupIntString.Add(key: cody, value: "Delta"); // Compiler error
+
+key = 3;
+WriteLine($"Key {key} has value: {lookupIntString[key]}");
+
+#endregion
+
+#endregion
