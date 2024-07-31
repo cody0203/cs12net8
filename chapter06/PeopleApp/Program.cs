@@ -230,3 +230,32 @@ aliceInPerson.WriteToConsole(); // Alice as born on a Monday
 WriteLine(aliceInEmployee.ToString()); // Alice's code is AA123
 WriteLine(aliceInPerson.ToString()); // Alice's code is AA123
 #endregion
+
+#region Casting Inheritance
+// Employee explicitAlice = (Employee)aliceInPerson;
+
+#region Avoiding casting exceptions
+// if (aliceInPerson is Employee)
+// {
+//     WriteLine($"{nameof(aliceInPerson)} is an Employee");
+//     Employee explicitAlice = (Employee)aliceInPerson;
+//     // Safely doing something with explicitAlice
+// }
+
+// Shorthand with a declaration pattern
+if (aliceInPerson is Employee explicitAlice)
+{
+    WriteLine($"{nameof(aliceInPerson)} is an Employee");
+    // Safely doing something with explicitAlice
+}
+#endregion
+
+#region Using as to cast a type
+Employee? aliceAsEmployee = aliceInPerson as Employee;
+
+if (aliceAsEmployee is not null)
+{
+    WriteLine($"{nameof(aliceAsEmployee)} as an Employee");
+}
+#endregion
+#endregion
