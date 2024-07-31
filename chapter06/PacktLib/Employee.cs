@@ -11,4 +11,11 @@ public class Employee : Person
         WriteLine($"{Name} was born on {Born:dd/MM/yy} and hired on {HireDate:dd/MM/yy}");
     }
     #endregion
+
+    #region Polymorphism
+    public override string ToString()
+    {
+        return $"{Name}'s code is {EmployeeCode}";
+    }
+    #endregion
 }

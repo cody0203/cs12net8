@@ -216,3 +216,17 @@ FullyImplemented fully = new(); // Only can instantiate the fully implemented cl
 // INoImplementation noImplementation = new();
 #endregion
 #endregion
+
+#region Polymorphism
+Employee aliceInEmployee = new()
+{
+    Name = "Alice",
+    EmployeeCode = "AA123"
+};
+
+Person aliceInPerson = aliceInEmployee;
+aliceInEmployee.WriteToConsole(); // Alice was born on 01/01/01 and hired on 01/01/01
+aliceInPerson.WriteToConsole(); // Alice as born on a Monday
+WriteLine(aliceInEmployee.ToString()); // Alice's code is AA123
+WriteLine(aliceInPerson.ToString()); // Alice's code is AA123
+#endregion
