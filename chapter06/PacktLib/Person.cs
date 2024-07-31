@@ -173,4 +173,11 @@ public class Person: IComparable<Person?>
         return position;
     }
     #endregion
+
+    #region Overring members
+    public override string ToString()
+    {
+        return $"{Name} is a {base.ToString}"; // base keyword allows a subclass to access members of its superclass
+    }
+    #endregion
 }
