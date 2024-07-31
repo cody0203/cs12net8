@@ -259,3 +259,35 @@ if (aliceAsEmployee is not null)
 }
 #endregion
 #endregion
+
+#region Inheriting and Extending .NET Types
+
+#region Inheriting .NET Types
+try {
+john.TimeTravel(when: new(1990, 12, 31));
+john.TimeTravel(when: new(1980, 12, 31)); // If you travel back in time to a date ealier than your own birth, then the universe will explode
+}
+catch(PersonException ex)
+{
+    WriteLine(ex.Message);
+}
+#endregion
+
+#endregion
+
+#region Extending .NET Types
+
+#region Using static method
+string email1 = "cody@test.com";
+string email2 = "cody&test.com";
+
+WriteLine($"{email1} is a valid e-mail address: {StringStaticMethodExtensioning.IsValidEmailStatic(email1)}");
+WriteLine($"{email2} is a valid e-mail address: {StringStaticMethodExtensioning.IsValidEmailStatic(email2)}");
+
+#endregion
+
+#region Using extension method
+WriteLine($"{email1} is a valid e-mail address: {email1.IsValidEmailExtension()}");
+WriteLine($"{email2} is a valid e-mail address: {email2.IsValidEmailExtension()}");
+#endregion
+#endregion
