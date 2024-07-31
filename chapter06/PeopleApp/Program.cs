@@ -188,3 +188,31 @@ DisplacementVector dv4 = new(3, 5);
 WriteLine($"dv1.Equals(dv4): {dv1.Equals(dv4)}"); // True
 // WriteLine($"dv1 == dv4: {dv1 == dv4}"); // Error if DisplacementVector is a struct type, but it's ok if it is a record struct type
 #endregion
+
+#region Inheriting From Classes
+Employee john = new()
+{
+    Name = "John Doe",
+    Born = new(year: 1990, month: 1, day: 28, hour: 0, minute: 0, second: 0, offset: TimeSpan.Zero)
+};
+
+john.WriteToConsole();
+
+john.EmployeeCode = "JD001";
+john.HireDate = new(year: 2023, month: 4, day: 24);
+WriteLine($"{john.Name} was hired on {john.HireDate:yyyy-MM-dd}.");
+
+#region Overriding members
+WriteLine(john.ToString()); // Packt.Shared.Employee
+#endregion
+
+#region Inheriting From Abstract
+
+FullyImplemented fully = new(); // Only can instantiate the fully implemented class
+
+// All other types give compile errors.
+// PartiallyImplemented partiallyImplemented = new();
+// ISomeImplementation someImplementation = new();
+// INoImplementation noImplementation = new();
+#endregion
+#endregion
