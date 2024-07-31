@@ -180,4 +180,18 @@ public class Person: IComparable<Person?>
         return $"{Name} is a {base.ToString}"; // base keyword allows a subclass to access members of its superclass
     }
     #endregion
+
+    #region Inheriting and Extending .NET Types
+    public void TimeTravel(DateTime when)
+    {
+        if (when < Born)
+        {
+            throw new PersonException("If you travel back in time to a date ealier than your own birth, then the universe will explode");
+        }
+        else
+        {
+            WriteLine($"Welcom to {when:yyyy}!");
+        }
+    }
+    #endregion
 }
