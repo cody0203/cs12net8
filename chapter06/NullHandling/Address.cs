@@ -19,4 +19,12 @@ public class Address
     {
         City = city;
     }
+
+    public void ChangeAddress(string city, string region, string street, string building)
+    {
+        ArgumentNullException.ThrowIfNull(city);
+        ArgumentNullException.ThrowIfNull(region);
+        ArgumentNullException.ThrowIfNull(street);
+        ArgumentNullException.ThrowIfNull(building);
+    }
 }

@@ -37,3 +37,19 @@ if (address.Street is not null)
     WriteLine(address.Street.Length);
 }
 #endregion
+
+#region Checking For Null
+if (address.Street is null)
+{
+    WriteLine("Street is null");
+}
+
+string authorName = null;
+int? authorNameLength;
+// authorNameLength = authorName.Length; // NullReferenceException
+authorNameLength = authorName?.Length;
+WriteLine($"Author name length: {authorNameLength}"); // null
+
+authorNameLength = authorName?.Length ?? 25;
+WriteLine($"Author name length: {authorNameLength}"); // 25
+#endregion
