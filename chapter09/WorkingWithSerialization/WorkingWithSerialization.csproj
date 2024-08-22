@@ -12,4 +12,8 @@
     <Using Include="System.Environment" Static="true" />
     <Using Include="System.IO.Path" Static="true" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
 </Project>

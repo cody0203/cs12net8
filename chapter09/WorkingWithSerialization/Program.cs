@@ -1,5 +1,6 @@
 ﻿using System.Xml.Serialization;
 using Packt.Shared;
+using FastJson = System.Text.Json.JsonSerializer;
 
 List<Person> people = new()
 {
@@ -58,5 +59,36 @@ using (FileStream xmlLoad = File.Open(path, FileMode.Open))
             WriteLine($"{person.LastName} has {person.Children?.Count ?? 0} children");
         }
     }
+}
+#endregion
+
+#region Serializing as JSON
+SectionTitle("Serializing as JSON");
+string jsonPath = Combine(CurrentDirectory, "people.json");
+
+using (StreamWriter jsonStream = File.CreateText(jsonPath))
+{
+    Newtonsoft.Json.JsonSerializer jss = new();
+
+    jss.Serialize(jsonStream, people);
+}
+
+OutputFileInfo(jsonPath);
+#endregion
+
+#region Deserializing JSON files
+SectionTitle("Deserializing JSON files");
+await using(FileStream jsonLoad = File.Open(jsonPath, FileMode.Open))
+{
+    List<Person>? loadedPeople = await FastJson.DeserializeAsync(utf8Json: jsonLoad, returnType: typeof(List<Person>)) as List<Person>;
+
+    if (loadedPeople is not null)
+    {
+        foreach (Person person in loadedPeople)
+        {
+            WriteLine($"{person.LastName} has {person.Children?.Count ?? 0} children");
+        }
+    }
+    
 }
 #endregion
