@@ -133,4 +133,35 @@ partial class Program
         Info($"Single: {product?.ProductName}");
         if (product is null) Fail("No product found using Single");
     }
+
+    private static void QueryingWithLike()
+    {
+        using NorthwindDb db = new();
+
+        SectionTitle("Pattern matching with LIKE");
+
+        Write("Enter part of a product name: ");
+
+        string? input = ReadLine();
+
+        if (string.IsNullOrEmpty(input))
+        {
+            Fail("You did not enter part of a product name");
+            return;
+        }
+
+        IQueryable<Product>? products = db.Products?
+        .Where(p => EF.Functions.Like(p.ProductName, $"%{input}%"));
+
+        if (products is null || !products.Any())
+        {
+            Fail("No products found.");
+            return;
+        }
+
+        foreach (Product product in products)
+        {
+            WriteLine($"{product.ProductName} has {product.Stock} units in stock. Discontinued: {product.Discontinued}");
+        }
+    }
 }
