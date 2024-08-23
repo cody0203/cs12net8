@@ -13,7 +13,7 @@ public class NorthwindDb: DbContext
 
         string connectionString = $"Data Source={path}";
         WriteLine($"Connection: {connectionString}");
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Northwind;Encrypt=False;Trusted_Connection=True;TrustServerCertificate=true;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
