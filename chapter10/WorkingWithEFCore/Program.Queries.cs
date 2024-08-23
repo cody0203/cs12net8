@@ -164,4 +164,30 @@ partial class Program
             WriteLine($"{product.ProductName} has {product.Stock} units in stock. Discontinued: {product.Discontinued}");
         }
     }
+    
+    private static void GetRandomProduct()
+    {
+        using NorthwindDb db = new();
+
+        SectionTitle("Get a random product");
+
+        int? rowCount = db.Products?.Count();
+
+        if (rowCount is null)
+        {
+            Fail("Products table is empty");
+            return;
+        }
+
+        Product? product = db.Products?
+        .FirstOrDefault(p => p.ProductId == (int)(EF.Functions.Random() * rowCount));
+
+        if (product is null)
+        {
+            Fail("Product not found.");
+            return;
+        }
+
+        WriteLine($"Random product: {product.ProductId} - {product.ProductName}");
+    }
 }

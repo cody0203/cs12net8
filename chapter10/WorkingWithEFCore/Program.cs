@@ -12,4 +12,6 @@ ConfigureConsole();
 
 // GettingOneProduct();
 
-QueryingWithLike();
+// QueryingWithLike();
+
+GetRandomProduct();
