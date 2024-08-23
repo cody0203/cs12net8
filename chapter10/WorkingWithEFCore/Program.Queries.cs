@@ -10,7 +10,9 @@ partial class Program
         SectionTitle("Categories and how many products they have");
 
         // A query to get all categories and their related products.
-        IQueryable<Category>? categories = db.Categories?.Include(c => c.Products);
+        IQueryable<Category>? categories = db.Categories?
+        .TagWith("Categories and their products number.")
+        .Include(c => c.Products);
 
         if (categories is null || !categories.Any())
         {
@@ -39,7 +41,9 @@ partial class Program
             input = ReadLine();
         } while(!int.TryParse(input, out stock));
 
-        IQueryable<Category>? categories = db.Categories?.Include(c => c.Products.Where(p => p.Stock >= stock));
+        IQueryable<Category>? categories = db.Categories?
+        .TagWith("-- Categories filtered by products with a minimum number of units in stock.")
+        .Include(c => c.Products.Where(p => p.Stock >= stock));
 
         if (categories is null || !categories.Any())
         {
@@ -75,7 +79,10 @@ partial class Program
             input = ReadLine();
         } while(!decimal.TryParse(input, out price));
 
-        IQueryable<Product>? products = db.Products?.Where(p => p.Cost > price).OrderByDescending(p => p.Cost);
+        IQueryable<Product>? products = db.Products?
+        .TagWith("-- Products filtered by price and sorted.")
+        .Where(p => p.Cost > price)
+        .OrderByDescending(p => p.Cost);
 
         if (products is null || !products.Any())
         {

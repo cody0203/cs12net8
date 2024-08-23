@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics; // To use RelationalEventId.
 
 namespace Northwind.EntityModels;
 
@@ -14,6 +15,13 @@ public class NorthwindDb: DbContext
         string connectionString = $"Data Source={path}";
         WriteLine($"Connection: {connectionString}");
         optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Northwind;Encrypt=False;Trusted_Connection=True;TrustServerCertificate=true;");
+
+        optionsBuilder.LogTo(WriteLine, new[] { RelationalEventId.CommandExecuting }) // This is the Console method.
+        #if DEBUG
+            .EnableSensitiveDataLogging() // Include SQL parameters.
+            .EnableDetailedErrors()
+        #endif
+        ;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
