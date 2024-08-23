@@ -6,6 +6,12 @@ WriteLine($"Provider: {db.Database.ProviderName}");
 ConfigureConsole();
 
 QueryingCategories();
-FitleredIncludes();
+// FitleredIncludes();
 
-QueryingProducts();
+// QueryingProducts();
+
+// GettingOneProduct();
+
+// QueryingWithLike();
+
+// GetRandomProduct();
