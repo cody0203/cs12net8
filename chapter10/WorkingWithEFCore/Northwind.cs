@@ -32,5 +32,9 @@ public class NorthwindDb: DbContext
         .Property(category => category.CategoryName)
         .IsRequired() // Not NULL
         .HasMaxLength(15);
+
+        // A global filter to remove discontinued products.
+        modelBuilder.Entity<Product>()
+        .HasQueryFilter(p => !p.Discontinued);
     }
 }
