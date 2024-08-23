@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore; // To use Include method.
 using Northwind.EntityModels; // To use Northwind, Category, Product.
+using Microsoft.EntityFrameworkCore.ChangeTracking; // To use CollectionEntry
 
 partial class Program
 {
@@ -10,10 +11,34 @@ partial class Program
         SectionTitle("Categories and how many products they have");
 
         // A query to get all categories and their related products.
-        IQueryable<Category>? categories = db.Categories;
-        // Calling the Include method enabled eager loading automatically.
-        // .TagWith("Categories and their products number.")
-        // .Include(c => c.Products);
+        // IQueryable<Category>? categories = db.Categories;
+        // // Calling the Include method enabled eager loading automatically.
+        // // .TagWith("Categories and their products number.")
+        // // .Include(c => c.Products);
+
+        // Explicit loading entities using the Load method
+        IQueryable<Category>? categories;
+
+        db.ChangeTracker.LazyLoadingEnabled = false;
+
+        Write("Enable eager loading (Y/N): ");
+        bool eagerLoading = (ReadKey().Key == ConsoleKey.Y);
+        bool explicitLoading = false;
+
+        WriteLine();
+
+        if (eagerLoading)
+        {
+            categories = db.Categories?.
+            Include(c => c.Products);
+        }
+        else
+        {
+            categories = db.Categories;
+            Write("Enable explicit loading? (Y/N): ");
+            explicitLoading = (ReadKey().Key == ConsoleKey.Y);
+            WriteLine();
+        }
 
         if (categories is null || !categories.Any())
         {
@@ -28,6 +53,24 @@ partial class Program
             // it will check if they are loaded. If they're not loaded, it will load them for us "lazily"
             // by executing a SELECT statement to load just that set of products for the current category.
             // => For a category and a product, it requires to execution of two SQL commands.
+
+            if (explicitLoading)
+            {
+                WriteLine($"Explicitly load products for {category.CategoryName}? (Y/N): ");
+                ConsoleKeyInfo key = ReadKey();
+                WriteLine();
+
+                // With explicit loading, we can control to load product or not. 
+                if (key.Key == ConsoleKey.Y)
+                {
+                    CollectionEntry<Category, Product>products = db.Entry(category).Collection(c => c.Products);
+
+                    if (!products.IsLoaded)
+                    {
+                        products.Load();
+                    }
+                }
+            }
             WriteLine($"{category.CategoryName} has {category.Products.Count} products");
         }
     }
