@@ -9,3 +9,5 @@ QueryingCategories();
 FitleredIncludes();
 
 QueryingProducts();
+
+GettingOneProduct();

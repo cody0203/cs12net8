@@ -97,4 +97,40 @@ partial class Program
             WriteLine($"{product.ProductId}: {product.ProductName} costs {product.Cost:$#,##0.00} and has {product.Stock} in stock.");
         }
     }
+
+    private static void GettingOneProduct()
+    {
+        using NorthwindDb db = new();
+
+        SectionTitle("Getting a single product");
+
+        string? input;
+        int id;
+
+        do
+        {
+            Write("Enter a product ID:");
+            input = ReadLine();
+        } while(!int.TryParse(input, out id));
+
+        // For First, the query can match with one or more entities and only the first will be returned.
+        // If there are no matches, an exception is thrown -> can using FirstOrDefault to return null if there are no matches
+        Product? product = db.Products?
+        // .FirstOrDefault(p => p.ProductId == id);
+        .First(p => p.ProductId == id);
+
+        Info($"First: {product?.ProductName}");
+
+        if (product is null) Fail("No product found using First");
+
+        // For Single, the query must match only one entity and it will be returned.
+        // If there is more than one match, an exception must be thrown.
+        // But the only way for EF Core to know if there is more than one match is to request more than one and check.
+        // So it has set TOP(2) and check if there is a second entity match.
+        product = db.Products?
+        .Single(p => p.ProductId == id);
+
+        Info($"Single: {product?.ProductName}");
+        if (product is null) Fail("No product found using Single");
+    }
 }
