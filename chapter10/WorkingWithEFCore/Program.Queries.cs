@@ -10,9 +10,10 @@ partial class Program
         SectionTitle("Categories and how many products they have");
 
         // A query to get all categories and their related products.
-        IQueryable<Category>? categories = db.Categories?
-        .TagWith("Categories and their products number.")
-        .Include(c => c.Products);
+        IQueryable<Category>? categories = db.Categories;
+        // Calling the Include method enabled eager loading automatically.
+        // .TagWith("Categories and their products number.")
+        // .Include(c => c.Products);
 
         if (categories is null || !categories.Any())
         {
@@ -20,8 +21,13 @@ partial class Program
             return;
         }
 
-        foreach (Category category in categories)
+        // 
+        foreach (Category category in categories.ToList())
         {
+            // With lazy loading, every time the loop enumerates an attempt is made to read the Products property
+            // it will check if they are loaded. If they're not loaded, it will load them for us "lazily"
+            // by executing a SELECT statement to load just that set of products for the current category.
+            // => For a category and a product, it requires to execution of two SQL commands.
             WriteLine($"{category.CategoryName} has {category.Products.Count} products");
         }
     }

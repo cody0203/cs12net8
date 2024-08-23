@@ -5,13 +5,13 @@ WriteLine($"Provider: {db.Database.ProviderName}");
 
 ConfigureConsole();
 
-// QueryingCategories();
+QueryingCategories();
 // FitleredIncludes();
 
 // QueryingProducts();
 
 // GettingOneProduct();
 
-QueryingWithLike();
+// QueryingWithLike();
 
 // GetRandomProduct();

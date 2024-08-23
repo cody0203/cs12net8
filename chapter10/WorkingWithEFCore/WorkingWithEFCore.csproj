@@ -18,6 +18,7 @@
   </PackageReference>
     <PackageReference Version="5.2.0" Include="Microsoft.Data.SqlClient" />
     <PackageReference Version="8.0.4" Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Version="8.0.0" Include="Microsoft.EntityFrameworkCore.Proxies" />
   </ItemGroup>
 
   <ItemGroup>
