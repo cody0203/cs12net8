@@ -68,4 +68,25 @@ partial class Program
 
         return (affected, updateProduct.ProductId);
      }
+
+     private static int DeleteProduct(string productNameStartWith)
+     {
+        using NorthwindDb db = new();
+
+        IQueryable<Product>? products = db.Products?.Where(p => p.ProductName.StartsWith(productNameStartWith));
+
+        if (products is null || !products.Any())
+        {
+            WriteLine("No products found to delete.");
+            return 0;
+        }
+        else
+        {
+            if (db.Products is null) return 0;
+            db.Products.RemoveRange(products);
+        }
+
+        int affected = db.SaveChanges();
+        return affected;
+     }
 }
