@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore; // To use ExecuteUpdate, ExecuteDelete
 using Microsoft.EntityFrameworkCore.ChangeTracking; // To use EntityEntry<T>
 using Northwind.EntityModels; // To use Northwind, Product.
+using Microsoft.EntityFrameworkCore.Storage; // To use IDbContextTransaction.
 
 partial class Program
 {
@@ -69,25 +70,32 @@ partial class Program
         return (affected, updateProduct.ProductId);
      }
 
-     private static int DeleteProduct(string productNameStartWith)
+     private static int DeleteProducts(string productNameStartWith)
      {
-        using NorthwindDb db = new();
-
-        IQueryable<Product>? products = db.Products?.Where(p => p.ProductName.StartsWith(productNameStartWith));
-
-        if (products is null || !products.Any())
+        using (NorthwindDb db = new())
         {
-            WriteLine("No products found to delete.");
-            return 0;
-        }
-        else
-        {
-            if (db.Products is null) return 0;
-            db.Products.RemoveRange(products);
-        }
+            using (IDbContextTransaction t = db.Database.BeginTransaction())
+            {
+                WriteLine($"Transaction isolation level: {t.GetDbTransaction().IsolationLevel}");
 
-        int affected = db.SaveChanges();
-        return affected;
+                IQueryable<Product>? products = db.Products?.Where(p => p.ProductName.StartsWith(productNameStartWith));
+
+                if (products is null || !products.Any())
+                {
+                    WriteLine("No products found to delete.");
+                    return 0;
+                }
+                else
+                {
+                    if (db.Products is null) return 0;
+                    db.Products.RemoveRange(products);
+                }
+
+                    int affected = db.SaveChanges();
+                    t.Commit(); // Without commiting, db changes won't be saved.
+                    return affected;
+            }
+        }
      }
 
      private static (int affected, int[]? productIds) IncreaseProductPricesBetter(string productNameStartWith, decimal amount)
