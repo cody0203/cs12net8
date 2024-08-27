@@ -239,4 +239,24 @@ partial class Program
 
         WriteLine($"Random product: {product.ProductId} - {product.ProductName}");
     }
+
+    private static void LazyLoadingWithNoTracking()
+    {
+        using NorthwindDb db = new();
+
+        SectionTitle("Lazy-loading with no tracking");
+        // Should using no-tracking queries in case that we only want to get the data, and don't want to modify them.
+        IQueryable<Product>? products = db.Products?.AsNoTracking();
+
+        if (products is null || !products.Any())
+        {
+            Fail("No products found");
+            return;
+        }
+
+        foreach (Product p in products.ToList())
+        {
+            WriteLine($"{p.ProductName} is in category named {p.Category.CategoryName}");
+        }
+    }
 }

@@ -5,7 +5,7 @@ WriteLine($"Provider: {db.Database.ProviderName}");
 
 ConfigureConsole();
 
-QueryingCategories();
+// QueryingCategories();
 // FitleredIncludes();
 
 // QueryingProducts();
@@ -15,3 +15,5 @@ QueryingCategories();
 // QueryingWithLike();
 
 // GetRandomProduct();
+
+LazyLoadingWithNoTracking();
