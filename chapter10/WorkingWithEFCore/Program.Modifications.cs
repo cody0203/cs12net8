@@ -29,7 +29,7 @@ partial class Program
         }
      }
 
-     private static (int affected, int productId) addProduct(int categoryId, string productName, decimal? price, short? stock)
+     private static (int affected, int productId) AddProduct(int categoryId, string productName, decimal? price, short? stock)
      {
         using NorthwindDb db = new();
 
@@ -52,5 +52,20 @@ partial class Program
         WriteLine($"State: {entity.State}, ProductId: {p.ProductId}");
 
         return (affected, p.ProductId);
+     }
+
+     private static (int affected, int productId) IncreaseProductPrice(string productNameStartWith, decimal amount)
+     {
+        using NorthwindDb db = new();
+        
+        if (db.Products is null) return (0, 0);
+
+        Product updateProduct = db.Products.First(p => p.ProductName.StartsWith(productNameStartWith));
+
+        updateProduct.Cost += amount;
+
+        int affected = db.SaveChanges();
+
+        return (affected, updateProduct.ProductId);
      }
 }
