@@ -47,6 +47,27 @@ partial class Program
         }
     }
 
+    static void FilteringByType()
+    {
+        SectionTitle("Filtering by type");
+
+        List<Exception> exceptions = new()
+        {
+            new ArgumentException(), new SystemException(),
+            new IndexOutOfRangeException(), new InvalidOperationException(),
+            new NullReferenceException(), new InvalidCastException(),
+            new OverflowException(), new DivideByZeroException(),
+            new ApplicationException()
+        };
+
+        IEnumerable<ArithmeticException> arithmeticExceptionsQuery = exceptions.OfType<ArithmeticException>();
+
+        foreach (ArithmeticException exception in arithmeticExceptionsQuery)
+        {
+            WriteLine(exception);
+        }
+    }
+
     static bool NameLongerThanFour(string name)
     {
         return name.Length > 4;
