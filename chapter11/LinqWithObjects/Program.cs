@@ -3,4 +3,5 @@ string[] names = { "Michael", "Pam", "Jim", "Dwight", "Angela", "Kevin", "Toby",
 
 // DeferredExecution(names);
 // FilteringUsingWhere(names);
-FilteringByType();
+// FilteringByType();
+WorkingWithSets();
