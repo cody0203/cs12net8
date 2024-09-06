@@ -2,6 +2,6 @@
 // FilterAndSort();
 // JoinCategoriesAndProducts();
 // GroupJoinCategoriesAndProducts();
-// ProductsLookup();
+ProductsLookup();
 // AggregateProducts();
-PagingProducts();
+// PagingProducts();

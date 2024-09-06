@@ -11,9 +11,20 @@ partial class Program
 
         DbSet<Product> allProducts = db.Products;
 
-        IQueryable<Product> filteredProducts = allProducts.Where(product => product.UnitPrice < 10M);
+        #region  With Linq extension methods
+        // IQueryable<Product> filteredProducts = allProducts.Where(product => product.UnitPrice < 10M);
 
-        IOrderedQueryable<Product> sortedAndFilteredProducts = filteredProducts.OrderByDescending(product => product.UnitPrice);
+        // IOrderedQueryable<Product> sortedAndFilteredProducts = filteredProducts.OrderByDescending(product => product.UnitPrice);
+
+        #endregion
+
+        #region With Linq syntactic sugar
+        IQueryable<Product> sortedAndFilteredProducts = from product in allProducts
+        where product.UnitPrice < 10M
+        orderby product.UnitPrice descending
+        select product;
+
+        #endregion
 
         // WriteLine("Products that cost less than $10:");
         // WriteLine(sortedAndFilteredProducts.ToQueryString());
@@ -61,13 +72,23 @@ partial class Program
 
         using NorthwindDb db = new();
 
+        #region  With Linq extension methods
         // Join every product to its category.
-        var queryJoin = db.Categories.Join( // inner join
-            inner: db.Products,
-            outerKeySelector: category => category.CategoryId,
-            innerKeySelector: product => product.CategoryId,
-            resultSelector: (c, p) => new { c.CategoryName, p.ProductName, p.ProductId }
-        );
+        // var queryJoin = db.Categories.Join( // inner join
+        //     inner: db.Products,
+        //     outerKeySelector: category => category.CategoryId,
+        //     innerKeySelector: product => product.CategoryId,
+        //     resultSelector: (c, p) => new { c.CategoryName, p.ProductName, p.ProductId }
+        // );
+
+        #endregion
+
+        #region With Linq syntactic sugar
+        var queryJoin = from c in db.Categories
+        join p in db.Products
+        on c.CategoryId equals p.CategoryId
+        select new { c.CategoryName, p.ProductName, p.ProductId };
+        #endregion
 
         WriteLine(queryJoin.ToQueryString());
 
@@ -89,20 +110,34 @@ partial class Program
 
         // Group all products by their category.
 
-        var queryGroup = db.Categories.GroupJoin(
-            inner: db.Products,
-            outerKeySelector: category => category.CategoryId,
-            innerKeySelector: product => product.CategoryId,
-            resultSelector: (c, matchingProducts) => new
-            {
-                c.CategoryName,
-                Products = matchingProducts.OrderBy(p => p.ProductName).Select(p => new // Select necessary fields only
-                {
-                    p.ProductName,
-                    p.ProductId,
-                })
-            }
-        );
+        #region With Linq extension methods
+        
+        // var queryGroup = db.Categories.GroupJoin(
+        //     inner: db.Products,
+        //     outerKeySelector: category => category.CategoryId,
+        //     innerKeySelector: product => product.CategoryId,
+        //     resultSelector: (c, matchingProducts) => new
+        //     {
+        //         c.CategoryName,
+        //         Products = matchingProducts.OrderBy(p => p.ProductName).Select(p => new // Select necessary fields only
+        //         {
+        //             p.ProductName,
+        //             p.ProductId,
+        //         })
+        //     }
+        // );
+
+        #endregion
+
+        #region With Linq syntactic sugar
+        var queryGroup = from c in db.Categories
+        join p in db.Products on c.CategoryId equals p.CategoryId into matchingProducts
+        select new { c.CategoryName, Products = matchingProducts.OrderBy(p => p.ProductName).Select(p => new {
+            p.ProductName,
+            p.ProductId
+        })};
+        
+        #endregion
 
         WriteLine(queryGroup.ToQueryString());
         // SELECT [c].[CategoryName], [c].[CategoryId], [t].[ProductName], [t].[ProductId]
@@ -132,13 +167,23 @@ partial class Program
 
         using NorthwindDb db = new();
 
+        #region With Linq extension methods
+
         // Join all products to their category.
-        var productQuery = db.Categories.Join(
-            inner: db.Products,
-            outerKeySelector: category => category.CategoryId,
-            innerKeySelector: product => product.CategoryId,
-            resultSelector: (c, p) => new { c.CategoryName, Product = p }
-        );
+        // var productQuery = db.Categories.Join(
+        //     inner: db.Products,
+        //     outerKeySelector: category => category.CategoryId,
+        //     innerKeySelector: product => product.CategoryId,
+        //     resultSelector: (c, p) => new { c.CategoryName, Product = p }
+        // );
+
+        #endregion
+
+        #region With Linq syntactic sugar
+        var productQuery = from c in db.Categories
+        join p in db.Products on c.CategoryId equals p.CategoryId
+        select new { c.CategoryName, Product = p };
+        #endregion
 
         // Group product by Linq extension method.
         // ToLookup method creates a dictionary-like data structure of key-value pairs in memory.
