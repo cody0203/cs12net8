@@ -9,4 +9,8 @@
   <ItemGroup>
     <Using Include="System.Console" Static="true" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Northwind.DataContext.SqlServer\Northwind.DataContext.SqlServer.csproj" />
+  </ItemGroup>
 </Project>
