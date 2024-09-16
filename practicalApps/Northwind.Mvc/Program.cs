@@ -12,6 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>() // Enable role management.
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -49,7 +50,8 @@ app.UseOutputCache();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}").CacheOutput(policyName: "Views"); // Consumpt cached data 
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+    // .CacheOutput(policyName: "Views"); // Consumpt cached data 
 app.MapRazorPages();
 
 app.MapGet("/notcached", () => DateTime.Now.ToString());
