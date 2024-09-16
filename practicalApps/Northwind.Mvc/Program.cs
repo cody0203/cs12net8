@@ -20,7 +20,8 @@ builder.Services.AddNorthwindContext();
 // Add cache for all routes
 builder.Services.AddOutputCache(options =>
 {
-    options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(10);
+    options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(20);
+    options.AddPolicy("views", p => p.SetVaryByQuery("alertstyle"));
 });
 
 var app = builder.Build();
@@ -48,7 +49,7 @@ app.UseOutputCache();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}").CacheOutput(); // Consumpt cached data 
+    pattern: "{controller=Home}/{action=Index}/{id?}").CacheOutput(policyName: "Views"); // Consumpt cached data 
 app.MapRazorPages();
 
 app.MapGet("/notcached", () => DateTime.Now.ToString());

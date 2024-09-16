@@ -52,8 +52,10 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    public IActionResult ProductDetail(int? id)
+    public IActionResult ProductDetail(int? id,
+        string alertstyle = "success")
     {
+        ViewData["alertstyle"] = alertstyle;
         if (!id.HasValue)
         {
             return BadRequest("You must pass a product ID in the route, for example, /Home/ProductDetail/21");
