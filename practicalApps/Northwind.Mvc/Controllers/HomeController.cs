@@ -19,6 +19,9 @@ public class HomeController : Controller
         _db = db;
     }
 
+    // Add response cache for specific route
+    [ResponseCache(Duration = 10 /* seconds */,
+    Location = ResponseCacheLocation.Any )]
     public IActionResult Index()
     {
         // Logger types
@@ -37,6 +40,7 @@ public class HomeController : Controller
         return View(model); // Pass the model to the view.
     }
 
+    [Route("private")]
     public IActionResult Privacy()
     {
         return View();
@@ -48,8 +52,10 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    public IActionResult ProductDetail(int? id)
+    public IActionResult ProductDetail(int? id,
+        string alertstyle = "success")
     {
+        ViewData["alertstyle"] = alertstyle;
         if (!id.HasValue)
         {
             return BadRequest("You must pass a product ID in the route, for example, /Home/ProductDetail/21");
@@ -63,6 +69,25 @@ public class HomeController : Controller
         {
             return NotFound($"ProductId {id} not found.");
         }
+
+        return View(model);
+    }
+
+    // This action method will handle GET and other requests except POST
+    public IActionResult ModelBinding()
+    {
+        return View();
+    }
+
+    [HttpPost] // This action method will handle POST requests
+    public IActionResult ModelBinding(Thing thing)
+    {
+        HomeModelBindingViewModel model = new(
+            Thing: thing, HasErrors: !ModelState.IsValid,
+            ValidationErrors: ModelState.Values
+                .SelectMany(state => state.Errors)
+                .Select(error => error.ErrorMessage)
+        );
 
         return View(model);
     }
