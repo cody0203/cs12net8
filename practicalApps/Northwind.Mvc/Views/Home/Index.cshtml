@@ -78,6 +78,11 @@
         @if (Model is not null)
         {
             <h2>Products</h2>
+            <h3>Query products by price</h3>
+            <form asp-action="ProductsThatCostMoreThan" method="GET">
+                <input name="Price" placeholder="Enter a product price" />
+                <input type="submit" />
+            </form>
             <div id="product-columns">
                 <ul class="list-group">
                     @foreach (Product p in @Model.Products)
