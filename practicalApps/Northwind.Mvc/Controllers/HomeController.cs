@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc; // To use ErrorViewModel.
 using Northwind.Mvc.Models; // To use Activity.
 using Microsoft.EntityFrameworkCore; // To use Include and ToListAsync method.
 using Northwind.EntityModels;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Northwind.Mvc.Controllers;
 
@@ -110,6 +111,25 @@ public class HomeController : Controller
         }
 
         ViewData["MaxPrice"] = price.Value.ToString("C");
+
+        return View(model);
+    }
+
+    public async Task<IActionResult> CategoryDetail(int? id)
+    {
+        if (!id.HasValue)
+        {
+        return BadRequest("You must pass a category ID in the route, for example /Home/CategoryDetail/6");
+        }
+
+        Category? model = await _db.Categories
+        .Include(p => p.Products)
+        .SingleOrDefaultAsync(c => c.CategoryId == id);
+
+        if (model is null)
+        {
+            return NotFound($"CategoryId {id} not found");
+        }
 
         return View(model);
     }
