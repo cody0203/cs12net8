@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc; // To use ErrorViewModel.
 using Northwind.Mvc.Models; // To use Activity.
 using Microsoft.EntityFrameworkCore; // To use Include and ToListAsync method.
 using Northwind.EntityModels;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Northwind.Mvc.Controllers;
 
@@ -42,6 +42,7 @@ public class HomeController : Controller
     }
 
     [Route("private")]
+    [Authorize(Roles = "Administrators")]
     public IActionResult Privacy()
     {
         return View();
