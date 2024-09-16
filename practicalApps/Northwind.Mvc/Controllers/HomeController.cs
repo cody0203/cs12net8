@@ -1,8 +1,8 @@
 using System.Diagnostics; // To use Controller, IActionResult.
 using Microsoft.AspNetCore.Mvc; // To use ErrorViewModel.
 using Northwind.Mvc.Models; // To use Activity.
-using Microsoft.EntityFrameworkCore;
-using Northwind.EntityModels; // To use Include method.
+using Microsoft.EntityFrameworkCore; // To use Include and ToListAsync method.
+using Northwind.EntityModels;
 
 namespace Northwind.Mvc.Controllers;
 
@@ -22,7 +22,7 @@ public class HomeController : Controller
     // Add response cache for specific route
     [ResponseCache(Duration = 10 /* seconds */,
     Location = ResponseCacheLocation.Any )]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         // Logger types
         // _logger.LogError("This is a serious error (not really!)");
@@ -33,8 +33,8 @@ public class HomeController : Controller
         HomeIndexViewModel model = new
         (
             VisitorCount: Random.Shared.Next(1, 1001),
-            Categories: _db.Categories.ToList(),
-            Products: _db.Products.ToList()
+            Categories: await _db.Categories.ToListAsync(),
+            Products: await _db.Products.ToListAsync()
         );
 
         return View(model); // Pass the model to the view.
@@ -52,7 +52,7 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    public IActionResult ProductDetail(int? id,
+    public async Task<IActionResult> ProductDetail(int? id,
         string alertstyle = "success")
     {
         ViewData["alertstyle"] = alertstyle;
@@ -61,9 +61,9 @@ public class HomeController : Controller
             return BadRequest("You must pass a product ID in the route, for example, /Home/ProductDetail/21");
         }
 
-        Product? model = _db.Products
+        Product? model = await _db.Products
         .Include(p => p.Category)
-        .SingleOrDefault(p => p.ProductId == id);
+        .SingleOrDefaultAsync(p => p.ProductId == id);
 
         if (model is null)
         {
@@ -92,17 +92,17 @@ public class HomeController : Controller
         return View(model);
     }
 
-    public IActionResult ProductsThatCostMoreThan(decimal? price)
+    public async Task<ActionResult> ProductsThatCostMoreThan(decimal? price)
     {
         if (!price.HasValue)
         {
             return BadRequest("You must pass a product price in the query string, for example /Home/ProductsThatCostMoreThan?price=50");
         }
 
-        IEnumerable<Product> model = _db.Products
+        IEnumerable<Product> model =  await _db.Products
         .Include(p => p.Category)
         .Include(p => p.Supplier)
-        .Where(p => p.UnitPrice > price);
+        .Where(p => p.UnitPrice > price).ToListAsync();
 
         if (!model.Any())
         {

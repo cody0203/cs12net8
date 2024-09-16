@@ -49,7 +49,8 @@ app.UseOutputCache();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}").CacheOutput(policyName: "Views"); // Consumpt cached data 
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+    // .CacheOutput(policyName: "Views"); // Consumpt cached data 
 app.MapRazorPages();
 
 app.MapGet("/notcached", () => DateTime.Now.ToString());
