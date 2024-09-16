@@ -19,6 +19,9 @@ public class HomeController : Controller
         _db = db;
     }
 
+    // Add response cache for specific route
+    [ResponseCache(Duration = 10 /* seconds */,
+    Location = ResponseCacheLocation.Any )]
     public IActionResult Index()
     {
         // Logger types
