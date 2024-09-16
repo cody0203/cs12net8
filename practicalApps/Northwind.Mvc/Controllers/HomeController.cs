@@ -66,4 +66,23 @@ public class HomeController : Controller
 
         return View(model);
     }
+
+    // This action method will handle GET and other requests except POST
+    public IActionResult ModelBinding()
+    {
+        return View();
+    }
+
+    [HttpPost] // This action method will handle POST requests
+    public IActionResult ModelBinding(Thing thing)
+    {
+        HomeModelBindingViewModel model = new(
+            Thing: thing, HasErrors: !ModelState.IsValid,
+            ValidationErrors: ModelState.Values
+                .SelectMany(state => state.Errors)
+                .Select(error => error.ErrorMessage)
+        );
+
+        return View(model);
+    }
 }
