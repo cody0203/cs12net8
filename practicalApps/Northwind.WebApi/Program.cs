@@ -48,6 +48,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<NorthwindContext>()
+    .AddSqlServer("Data Source=.;Initial Catalog=Northwind;Integrated Security=true;TrustServerCertificate=true;");
+
 var app = builder.Build();
 
 app.UseHttpLogging();
@@ -73,6 +77,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseHealthChecks(path: "/howdoyoufeel");
+
+app.UseMiddleware<SecurityHeaders>();
 
 app.MapControllers();
 
