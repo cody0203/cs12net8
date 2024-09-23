@@ -80,6 +80,8 @@ app.UseAuthorization();
 
 app.UseHealthChecks(path: "/howdoyoufeel");
 
+app.UseMiddleware<SecurityHeaders>();
+
 app.MapControllers();
 
 app.Run();
